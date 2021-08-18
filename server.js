@@ -1,11 +1,23 @@
 const express = require("express");
 const app = express();
-var exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
+
+require("./data/reddit-db");
+require("./controllers/posts")(app);
+// Set db
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
 app.get("/", function (req, res) {
-  res.render("home", { msg: "Hello World!" });
+  res.render("home");
+});
+
+app.get("/posts/new", function (req, res) {
+  res.render("posts-new");
 });
 
 app.listen(3000, function () {
