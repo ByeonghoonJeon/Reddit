@@ -1,9 +1,9 @@
+require("./data/reddit-db");
 const express = require("express");
 const app = express();
+require("./controllers/posts")(app);
 const exphbs = require("express-handlebars");
 
-require("./data/reddit-db");
-require("./controllers/posts")(app);
 // Set db
 
 app.use(express.json());
