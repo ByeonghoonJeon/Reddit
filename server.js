@@ -30,6 +30,8 @@ app.get("/posts/new", function (req, res) {
 });
 require("./controllers/posts")(app);
 
-app.listen(3000, function () {
+const server = app.listen(3000, function () {
   console.log("Server is listening on the port 3000");
 });
+
+module.exports = { server, app };
