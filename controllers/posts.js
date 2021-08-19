@@ -1,4 +1,6 @@
 const Post = require("../models/post");
+const express = require("express");
+const app = express();
 
 module.exports = (app) => {
   // CREATE
@@ -8,5 +10,23 @@ module.exports = (app) => {
 
     // SAVE INSTANCE OF POST MODEL TO DB AND REDIRECT TO THE ROOT
     post.save(() => res.redirect("/"));
+  });
+
+  app.get("/", async (req, res) => {
+    try {
+      const posts = await Post.find({}).lean();
+      return res.render("posts-index", { posts });
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+  // LOOK UP THE POST
+  app.get("/posts/:id", (req, res) => {
+    Post.findById(req.params.id)
+      .lean()
+      .then((post) => res.render("posts-show", { post }))
+      .catch((err) => {
+        console.log(err.message);
+      });
   });
 };
