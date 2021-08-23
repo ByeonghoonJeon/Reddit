@@ -20,8 +20,10 @@ module.exports = (app) => {
   });
   // LOOK UP THE POST
   app.get("/posts/:id", (req, res) => {
+    // LOOK UP THE POST
     Post.findById(req.params.id)
       .lean()
+      .populate("comments")
       .then((post) => res.render("posts-show", { post }))
       .catch((err) => {
         console.log(err.message);
