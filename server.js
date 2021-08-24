@@ -1,3 +1,4 @@
+require("dotenv").config();
 require("./data/reddit-db");
 const cookieParser = require("cookie-parser");
 const express = require("express");
