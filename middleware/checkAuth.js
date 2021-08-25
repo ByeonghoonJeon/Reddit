@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const checkAuth = (req, res, next) => {
   console.log("Checking authentication");
+
   const token = req.cookies.nToken;
   if (
     typeof req.cookies.nToken === "undefined" ||
