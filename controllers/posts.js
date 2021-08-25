@@ -3,17 +3,20 @@ const Post = require("../models/post");
 module.exports = (app) => {
   // CREATE
   app.post("/posts/new", (req, res) => {
-    // INSTANTIATE INSTANCE OF POST MODEL
-    const post = new Post(req.body);
+    if (req.user) {
+      const post = new Post(req.body);
 
-    // SAVE INSTANCE OF POST MODEL TO DB AND REDIRECT TO THE ROOT
-    post.save(() => res.redirect("/"));
+      post.save(() => res.redirect("/"));
+    } else {
+      return res.status(401); // UNAUTHORIZED
+    }
   });
 
   app.get("/", async (req, res) => {
+    const currentUser = req.user;
     try {
       const posts = await Post.find({}).lean();
-      return res.render("posts-index", { posts });
+      return res.render("posts-index", { posts, currentUser });
     } catch (err) {
       console.log(err.message);
     }

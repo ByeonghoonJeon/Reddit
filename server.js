@@ -1,11 +1,12 @@
 require("dotenv").config();
 require("./data/reddit-db");
+
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
+app.use(cookieParser()); // Add this after you initialize express.
 const checkAuth = require("./middleware/checkAuth");
 app.use(checkAuth);
-app.use(cookieParser()); // Add this after you initialize express.
 
 const exphbs = require("express-handlebars");
 const Post = require("./models/post");
