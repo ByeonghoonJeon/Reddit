@@ -27,6 +27,11 @@ require("./controllers/comments.js")(app);
 
 require("./controllers/auth.js")(app);
 
+require("./controllers/posts")(app);
+require("./controllers/comments.js")(app);
+require("./controllers/auth.js")(app);
+require("./controllers/replies.js")(app);
+
 const server = app.listen(3000, function () {
   console.log("Server is listening on the port 3000");
 });
