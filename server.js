@@ -4,6 +4,7 @@ require("./data/reddit-db");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
+app.use(express.static("public"));
 app.use(cookieParser()); // Add this after you initialize express.
 const checkAuth = require("./middleware/checkAuth");
 app.use(checkAuth);
@@ -21,12 +22,6 @@ app.set("view engine", "handlebars");
 app.get("/posts/new", function (req, res) {
   res.render("posts-new");
 });
-require("./controllers/posts")(app);
-
-require("./controllers/comments.js")(app);
-
-require("./controllers/auth.js")(app);
-
 require("./controllers/posts")(app);
 require("./controllers/comments.js")(app);
 require("./controllers/auth.js")(app);
